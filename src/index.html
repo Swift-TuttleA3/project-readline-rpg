@@ -1,46 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/src/scss/main.scss"
-        <title>RPG - Dragonfodder</title>
-     
-    </head>
-    <body>
-        <header><h1>Fingerübung mit Javascript-RPG</h1></header>
-        <main>
-        <div class="wrapper-game">
-        <div id="game">
-            
-            <div id="stats">
-                <span class="stat">XP: <strong><span id="xpText">0</span></strong></span>
-                <span class="stat">Health: <strong><span id="healthText">100</span></strong></span>
-                <span class="stat">Gold: <strong><span id="goldText">50</span></strong></span>
-            </div>
-            <div id="controls">
-                <button id="button1">Go to store</button>
-                <button id="button2">Go to cave</button>
-                <button id="button3">Fight dragon</button>
-            </div>
-            <div id="monsterStats">
-                <span class="stat">Monster Name: <strong><span id="monsterName"></span></strong></span>
-                <span class="stat">Health: <strong><span id="monsterHealth"></span></strong></span>
-            </div>
-            <div id="text">
-            <p>Du bist ein mutiger Abenteurer, der in das Dorf gekommen ist, um den Drachen zu besiegen, der die Bewohner in Angst und Schrecken versetzt. Der Drache hat sein Nest auf einem hohen Berg, der das Dorf überragt, und lässt niemanden entkommen. Du hast dich entschlossen, den Dorfbewohnern zu helfen, weil du einst selbst von einem Drachen angegriffen wurdest und deine Familie verloren hast. Du willst Rache nehmen und den Drachen auslöschen.</p>
-<p>Du stehst auf dem Dorfplatz, wo du von einigen dankbaren Dorfbewohnern begrüßt wirst. Sie bieten dir ihre Hilfe an und zeigen dir, wo du dich vorbereiten kannst.</p>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/src/scss/main.scss" />
+    <title>RPG - Drachenfutter</title>
+  </head>
+  <!-- <div class="bg-video">
+        <video class="bg-video__content" autoplay muted loop>
+          <source
+            src="./assets/video/dry-head-1080p.mp4"
+            type="video/mp4" aria-label="Video of a whitenoise as background"
+          />
+        </video>
+      </div> -->
+  <body>
+    <header class="container-fluid text-center p-3">
+      <h1>Fingerübung Javascript-RPG</h1>
+    </header>
+    <main>
+      <div class="container w-75 mt-5 pb-5" id="game">
+        <div class="container-fluid p-2" id="stats">
+          <span class="stat">XP: <span id="xpText">0</span></span>
+          <span class="stat">Health: <span id="healthText">100</span></span>
+          <span class="stat">Gold: <span id="goldText">50</span></span>
+        </div>
+        <div class="container d-flex justify-content-center" id="controls">
+          <button id="button1">Tante-Emma Laden</button>
+          <button id="button2">Zur Höhle</button>
+          <button id="button3">Drachen grillen</button>
+        </div>
+        <div class="container text-center fs-4" id="invSlot"></div>
+        <div class="container" id="monsterStats">
+          <span class="stats">Monster: <span id="monsterName"></span> </span>
+          <span class="stats">Health: <span id="monsterHealth"></span> </span>
+        </div>
+        <div id="text" class="container">
+          <p>
+            Du bist ein mutiger Abenteurer, der in das Dorf gekommen ist, um den
+            Drachen zu besiegen, der die Bewohner in Angst und Schrecken
+            versetzt. Der Drache hat sein Nest auf einem hohen Berg, der das
+            Dorf überragt, und lässt niemanden entkommen. Du hast dich
+            entschlossen, den Dorfbewohnern zu helfen, weil du einst selbst von
+            einem Drachen angegriffen wurdest und deine Familie verloren hast.
+            Du willst Rache nehmen und den Drachen auslöschen. Du stehst auf dem
+            Dorfplatz, wo du von einigen dankbaren Dorfbewohnern begrüßt wirst.
+            Sie bieten dir ihre Hilfe an und zeigen dir, wo du dich vorbereiten
+            kannst. Was wirst du tun? Die Entscheidung liegt bei dir.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <script src="../src/js/main.js"></script>
+  </body>
+</html>
+
 <!-- <span class="inner-textbox">
 - Du kannst zum **Tante Emma Laden** gehen, wo du einige nützliche Gegenstände kaufen kannst, wie Heiltränke, Seile, Fackeln oder Fallen. Der Ladenbesitzer ist ein freundlicher alter Mann, der dir gerne einen Rabatt gibt, wenn du ihm versprichst, den Drachen zu töten.
 - Du kannst zur **Höhle** gehen, die sich am Fuße des Berges befindet. Dort wimmelt es von kleineren Monstern, wie Ratten, Spinnen oder Kobolden. Du kannst dich dort mit ihnen anlegen, um etwas Gold, Erfahrung und Ausrüstung zu sammeln. Aber sei vorsichtig, die Höhle ist dunkel und voller Fallen. Du weißt nicht, was dich dort erwartet.
 - Du kannst direkt zum **Drachenhort** gehen, wo der Drache schläft. Du brauchst viel Mut, um dich ihm zu stellen, denn er ist riesig, stark und feuerspeiend. Du musst dich an ihm vorbeischleichen, um ihn zu überraschen, oder ihn frontal angreifen, um ihn zu provozieren. Du brauchst eine gute Strategie, um ihn zu besiegen, denn er wird dich nicht leicht aufgeben.
 - Du kannst auf dem **Dorfplatz** bleiben, wo du dich mit den Dorfbewohnern unterhalten kannst. Sie können dir einige nützliche Informationen geben, wie die Schwächen des Drachen, die Geheimnisse der Höhle oder die Geschichte des Dorfes. Sie können dir auch einige Tipps geben, wie du dich besser ausrüsten oder trainieren kannst. Sie sind dir sehr dankbar und hoffen, dass du sie retten wirst.
 </span> -->
-<p>Was wirst du tun? Die Entscheidung liegt bei dir.</p>
-            </div>
-        </div>
-        </div>
-        </main>
-        <script src="../src/js/main.js"></script>
-    </body>
-</html>

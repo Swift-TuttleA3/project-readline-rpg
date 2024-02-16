@@ -1,0 +1,37 @@
+$bs-nav-link-color: #fff;
+$bs-nav-link-hover-color: #fff;
+$bs-nav-link-hover-bg: #ffffff7b;
+$headings-font-family: "Sono", monospace;
+$headings-font-weight: 700;
+$headings-font-style: normal;
+$paragraph-font-family: "Sono", monospace;
+$paragraph-font-weight: 600;
+$paragraph-font-style: normal;
+$custom-color-golden-fizz: #fbf447;
+$custom-color-scarlet: #ff1e19;
+$custom-color-pearl: #fcf8d0;
+$custom-color-mine: #1f1f1f;
+$custom-color-punch: #d72e24;
+$custom-color-gorse: #fcf24a;
+$custom-color-california: #ff9c0a;
+$custom-color-laser-lemon: #ffff5a;
+$custom-color-coral-reef: #c0bfa0;
+$custom-color-christine: #f2700a;
+$custom-color-bison-hide: #c2bfa0;
+
+@font-face {
+    font-family: "Sono";
+    src: url("../assets/fonts/Sono/Sono-VariableFont_MONO\,wght.ttf");
+}
+@font-face {
+    font-family: "Nosifer-Regular";
+    src: url(../assets/fonts/Nosifer-Regular.ttf);
+}
+@font-face {
+    font-family: "Grenze Gotisch-Regular";
+    src: url(../assets/fonts/Grenze\ Gotisch-Regular.ttf);
+}
+@font-face {
+    font-family: "Slackey-Regular";
+    src: url(../assets/fonts/Slackey-Regular.ttf);
+}

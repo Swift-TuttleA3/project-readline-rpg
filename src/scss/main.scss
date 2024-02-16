@@ -1,99 +1,107 @@
-:root {
-    font-size: 62.5%;
-    --primary-color: #07092f;
-    --secondary-color: #d2d2d2;
-    --tertiary-color: #ff0000;
-    --quaternary-color: #f0d7a3;
-}
+// Custom.scss
+// Option B: Include parts of Bootstrap
+
+// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
+@import "../../node_modules/bootstrap/scss/functions";
+
+// 2. Include any default variable overrides here
+@import "variables.scss";
+
+// 3. Include remainder of required Bootstrap stylesheets
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+
+// 4. Include any optional Bootstrap components as you like
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../../node_modules/bootstrap/scss/utilities";
+
+
+// 5. Include any custom styles here
+
+// :root {
+//     font-size: 62.5%;
+// }
 *, html, body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Arial", "Helvetica", sans-serif;
-    font-size: 1.6rem;
+    font-size: 62.5%;
 }
 body {
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-
-}
-header {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-direction: row;
-    background-color: var(--primary-color);
-    opacity: 0.8;
-    border-bottom: 1rem solid var(--quaternary-color);
-    height: 10rem;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1;
-}
-h1 {
-    font-size: 2.8rem;
-    text-align: center;
-    color: var(--secondary-color);
-    
-    
-}
-main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 15rem;
-    padding: 2rem;
+    margin: 10rem 0 0 0;
     width: 100%;
     height: 100%;
-    z-index: 0;
 }
-.wrapper-game {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 50%;
-    background-color: var(--primary-color);
-    background-image: linear-gradient(to bottom, #07092f, #d2d2d2);
-    background-repeat: no-repeat;
-    background-repeat: no-repeat;
-    background-size:cover;
+header {
+    background-color: $custom-color-bison-hide;
+    opacity: 0.95;
+    border-bottom: .2rem solid $custom-color-scarlet;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    border-top: .2rem solid $custom-color-scarlet;
+}
+h1 {
+    font-family: "Nosifer-Regular", sans-serif;
+    font-size: 5.4rem;
+    // background-image: linear-gradient(to right, $custom-color-laser-lemon, $custom-color-golden-fizz, $custom-color-california, $custom-color-christine, $custom-color-scarlet, $custom-color-punch);
+    background-image: url(../assets/img/sparks.gif);
     background-position: center;
-    /* background-attachment: fixed; */
-    border: 0.3rem solid var(--primary-color);
-    padding: 2rem;
-    color: #0a0a23;
-    font-size: 3.2rem;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    text-align: center;
+    text-shadow: 2px 2px #78020014;
+    
 }
-#text {
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    font-size: 2rem;
-    font-weight: bold;
-    padding: 2rem;
-    text-align: left;
-    letter-spacing: 0.3rem;
+p {
+    font-family: "Sono", sans-serif;
+
+}
+a {
+    color: $custom-color-coral-reef;
+    font-size: 1.6rem;
+    text-decoration: none;
+    &:hover {
+        color: $custom-color-california;
+    }
+}
+body {
+    background-color: $custom-color-mine;
+}
+main {
+    padding-bottom: 2rem;
+    margin-top: 10rem;
+}
+.bg-video {
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -999;
     overflow: hidden;
-}
+    background-image: linear-gradient(to bottom, rgb(69, 0, 0), $custom-color-mine);
+    // opacity: 0.5;
+    &__content{
+      opacity: .3;
+      height: 100%;
+      width: 100%;
+      object-fit:cover;
+      filter: blur(5px);
+    }
+  }
 
 #game {
-    background-color: #ffffff;
-    color: #ffffff;
-    
-    max-width: 90%;
-
+    background-color: $custom-color-bison-hide;
+    border-radius: 15px;
 }
 
 #controls {
     border: 0.3rem solid black;
     padding: 1rem;
-    color: #0a0a23;
+    color: $custom-color-scarlet;
     font-size: 3.2rem;
-    text-align: center;
+    text-align: center;;
 }
 
 #stats {
@@ -115,26 +123,47 @@ main {
     display: none;
     border: 1px solid #0a0a23;
     padding: 5px;
-    color: #ffffff;
-    background-color: #c70d0d;
+    font-size: 2rem;
+    color: $custom-color-punch;
+
 }
 
-
-
-button {
-    cursor: pointer;
-    color: #0a0a23;
-    background-color: var(--quaternary-color);
-    border: 2px solid #0a0a23;
-    border-radius: 0.5rem;
-    width: 30%;
-    height: 10%;
-    overflow: hidden;
-    padding: 0.3rem;
-}
 #goldText, #healthText,#xpText, #attackText, #defenseText, #monsterHealthText, #monsterAttackText, #monsterDefenseText {
-    color: #ff0000;
+    color: $custom-color-punch;
+    text-align: center;
+    font-size: 2rem;
+
 }
-.inner-textbox {
-    display: none;
+
+#text {
+    background-color: $custom-color-mine;
+    color: $custom-color-bison-hide;
+    font-size: 3.6rem;
+}
+button {
+    border: 0.4rem solid $custom-color-mine;
+    background-color: $custom-color-coral-reef;
+    border-radius: 5px;
+    color: $custom-color-mine;
+    font-size: 1.8rem;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    margin: 1rem 5rem;
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.1);
+        transition: 0.3s 0.1s;
+        color: $custom-color-bison-hide;
+        background-color: $custom-color-mine;
+        ;
+        font-size: 1.8rem;
+        font-weight: bold;
+
+    }
+}
+.mt-10 {
+    margin-top: 10rem;
+}
+.mt-15 {
+    margin-top: 15rem;
 }
