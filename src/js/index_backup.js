@@ -1,3 +1,5 @@
+const readline = require('readline-sync');
+const chalk = require('chalk');
 
 let xp = 0;
 let health = 100;
@@ -7,16 +9,6 @@ let fighting;
 let monsterHealth;
 let inventory = ["stick"];
 
-const button1 = document.querySelector('#button1');
-const button2 = document.querySelector("#button2");
-const button3 = document.querySelector("#button3");
-const text = document.querySelector("#text");
-const xpText = document.querySelector("#xpText");
-const healthText = document.querySelector("#healthText");
-const goldText = document.querySelector("#goldText");
-const monsterStats = document.querySelector("#monsterStats");
-const monsterName = document.querySelector("#monsterName");
-const monsterHealthText =document.querySelector("#monsterHealth");
 const weapons = [
   { name: 'stick', power: 5 },
   { name: 'dagger', power: 30 },
@@ -91,20 +83,20 @@ const locations = [
     }
 ];
 
-// initialize buttons
-button1.onclick = goStore;
-button2.onclick = goCave;
-button3.onclick = fightDragon;
-
 function update(location) {
-  monsterStats.style.display = "none";
-  button1.innerText = location["button text"][0];
-  button2.innerText = location["button text"][1];
-  button3.innerText = location["button text"][2];
-  button1.onclick = location["button functions"][0];
-  button2.onclick = location["button functions"][1];
-  button3.onclick = location["button functions"][2];
-  text.innerText = location.text;
+  console.log(chalk.bold(location.name));
+  console.log(location.text);
+  console.log(chalk.yellow("Gold: " + gold));
+  console.log(chalk.green("Health: " + health));
+  console.log(chalk.blue("XP: " + xp));
+  console.log(chalk.gray("Inventory: " + inventory.join(", ")));
+
+  const button1 = location["button text"][0];
+  const button2 = location["button text"][1];
+  const button3 = location["button text"][2];
+  const choice = readline.keyInSelect([button1, button2, button3], "Choose an action:");
+
+  location["button functions"][choice]();
 }
 
 function goTown() {
@@ -123,10 +115,9 @@ function buyHealth() {
   if (gold >= 10) {
     gold -= 10;
     health += 10;
-    goldText.innerText = gold;
-    healthText.innerText = health;
+    console.log(chalk.green("You bought 10 health for 10 gold."));
   } else {
-    text.innerText = "You do not have enough gold to buy health.";
+    console.log(chalk.red("You do not have enough gold to buy health."));
   }
 }
 
@@ -135,30 +126,28 @@ function buyWeapon() {
     if (gold >= 30) {
       gold -= 30;
       currentWeapon++;
-      goldText.innerText = gold;
       let newWeapon = weapons[currentWeapon].name;
-      text.innerText = "You now have a " + newWeapon + ".";
+      console.log(chalk.green("You bought a " + newWeapon + " for 30 gold."));
       inventory.push(newWeapon);
-      text.innerText += " In your inventory you have: " + inventory;
     } else {
-      text.innerText = "You do not have enough gold to buy a weapon.";
+      console.log(chalk.red("You do not have enough gold to buy a weapon."));
     }
   } else {
-    text.innerText = "You already have the most powerful weapon!";
-    button2.innerText = "Sell weapon for 15 gold";
-    button2.onclick = sellWeapon;
+    console.log(chalk.yellow("You already have the most powerful weapon!"));
+    const sellChoice = readline.keyInYN("Do you want to sell your weapon for 15 gold?");
+    if (sellChoice) {
+      sellWeapon();
+    }
   }
 }
 
 function sellWeapon() {
   if (inventory.length > 1) {
     gold += 15;
-    goldText.innerText = gold;
     let currentWeapon = inventory.shift();
-    text.innerText = "You sold a " + currentWeapon + ".";
-    text.innerText += " In your inventory you have: " + inventory;
+    console.log(chalk.green("You sold a " + currentWeapon + " for 15 gold."));
   } else {
-    text.innerText = "Don't sell your only weapon!";
+    console.log(chalk.red("Don't sell your only weapon!"));
   }
 }
 
@@ -180,36 +169,36 @@ function fightDragon() {
 function goFight() {
   update(locations[3]);
   monsterHealth = monsters[fighting].health;
-  monsterStats.style.display = "block";
-  monsterName.innerText = monsters[fighting].name;
-  monsterHealthText.innerText = monsterHealth;
+  console.log(chalk.bold("You are fighting a " + monsters[fighting].name + "!"));
+  console.log(chalk.red("Monster Health: " + monsterHealth));
 }
 
 function attack() {
-  text.innerText = "The " + monsters[fighting].name + " attacks.";
-  text.innerText += " You attack it with your " + weapons[currentWeapon].name + ".";
+  console.log(chalk.bold("You attack the " + monsters[fighting].name + " with your " + weapons[currentWeapon].name + "!"));
+
   health -= getMonsterAttackValue(monsters[fighting].level);
   if (isMonsterHit()) {
-    monsterHealth -= weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;    
+    monsterHealth -= weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;
+    console.log(chalk.green("You hit the " + monsters[fighting].name + " for " + (weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1) + " damage!"));
   } else {
-    text.innerText += " You miss.";
+    console.log(chalk.yellow("You miss the " + monsters[fighting].name + "!"));
   }
-  healthText.innerText = health;
-  monsterHealthText.innerText = monsterHealth;
+
   if (health <= 0) {
     lose();
   } else if (monsterHealth <= 0) {
     fighting === 2 ? winGame() : defeatMonster();
   }
+
   if (Math.random() <= .1 && inventory.length !== 1) {
-    text.innerText += " Your " + inventory.pop() + " breaks.";
+    const brokenWeapon = inventory.pop();
     currentWeapon--;
+    console.log(chalk.red("Your " + brokenWeapon + " breaks!"));
   }
 }
 
 function getMonsterAttackValue(level) {
   const hit = (level * 5) - (Math.floor(Math.random() * xp));
-  console.log(hit);
   return hit > 0 ? hit : 0;
 }
 
@@ -218,22 +207,30 @@ function isMonsterHit() {
 }
 
 function dodge() {
-  text.innerText = "You dodge the attack from the " + monsters[fighting].name;
+  console.log(chalk.bold("You dodge the attack from the " + monsters[fighting].name + "!"));
 }
 
 function defeatMonster() {
-  gold += Math.floor(monsters[fighting].level * 6.7);
-  xp += monsters[fighting].level;
-  goldText.innerText = gold;
-  xpText.innerText = xp;
+  const monsterLevel = monsters[fighting].level;
+  const monsterGold = Math.floor(monsterLevel * 6.7);
+  const monsterXP = monsterLevel;
+
+  gold += monsterGold;
+  xp += monsterXP;
+
+  console.log(chalk.green("You defeated the " + monsters[fighting].name + "!"));
+  console.log(chalk.yellow("You gained " + monsterGold + " gold and " + monsterXP + " XP."));
+
   update(locations[4]);
 }
 
 function lose() {
+  console.log(chalk.red("You died. ☠️"));
   update(locations[5]);
 }
 
 function winGame() {
+  console.log(chalk.green("You defeated the dragon! YOU WIN THE GAME! 🎉"));
   update(locations[6]);
 }
 
@@ -243,9 +240,7 @@ function restart() {
   gold = 50;
   currentWeapon = 0;
   inventory = ["stick"];
-  goldText.innerText = gold;
-  healthText.innerText = health;
-  xpText.innerText = xp;
+  console.log(chalk.green("Game restarted."));
   goTown();
 }
 
@@ -266,20 +261,19 @@ function pick(guess) {
   while (numbers.length < 10) {
     numbers.push(Math.floor(Math.random() * 11));
   }
-  text.innerText = "You picked " + guess + ". Here are the random numbers:\n";
-  for (let i = 0; i < 10; i++) {
-    text.innerText += numbers[i] + "\n";
-  }
-  if (numbers.indexOf(guess) !== -1) {
-    text.innerText += "Right! You win 20 gold!";
+  console.log(chalk.bold("You picked " + guess + ". Here are the random numbers:"));
+  numbers.forEach(number => console.log(number));
+
+  if (numbers.includes(guess)) {
     gold += 20;
-    goldText.innerText = gold;
+    console.log(chalk.green("Right! You win 20 gold!"));
   } else {
-    text.innerText += "Wrong! You lose 10 health!";
     health -= 10;
-    healthText.innerText = health;
+    console.log(chalk.red("Wrong! You lose 10 health!"));
     if (health <= 0) {
       lose();
     }
   }
 }
+
+goTown();
