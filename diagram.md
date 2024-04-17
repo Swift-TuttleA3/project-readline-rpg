@@ -1,5 +1,5 @@
 ```mermaid
-flowchart TB;
+flowchart LR;
   A[Start] --> B[Welcome to the RPG game!]
   B --> C[Update location]
   C --> D[Go to town]
